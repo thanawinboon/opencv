@@ -16,6 +16,10 @@ try:
 
     cv2.imshow('detected circles', grayImage)
     cv2.waitKey(0)
+    
+    #save the image to disk
+    cv2.imwrite('greyscale.png', grayImage)
+
 finally:
     cv2.destroyAllWindows()
 
