@@ -8,15 +8,19 @@ imageName = 'circles.jpg'
 
 try:
     #load an image from the disk
-    img = cv2.imread(imageName,0)
-    cimg = cv2.imread(imageName)
+    grayImage = cv2.imread(imageName,0)
+    circleImage = cv2.imread(imageName)
     
     #blur the image, so that similar colors get combined
     #https://docs.opencv.org/3.1.0/d4/d13/tutorial_py_filtering.html
-    img = cv2.medianBlur(img,5)
-    
-    cv2.imshow('detected circles',img)
-    
+    grayImage = cv2.medianBlur(grayImage,5)
+
+    #display the image that is greyscale and blurred.
+    cv2.imshow('detected circles', circleImage)
+    cv2.waitKey(0) #wait for the user to press a key
+
+    #display the image that is greyscale and blurred.
+    cv2.imshow('detected circles', grayImage)
     cv2.waitKey(0)
 
     """
@@ -38,25 +42,28 @@ try:
     If you have an idea what size circles you are looking for, then it would be best to
     set min_radius and max_radius accordingly. Otherwise, it will return anything circular of any size.
     """
-    circles = cv2.HoughCircles(img,cv2.HOUGH_GRADIENT,1,minDist=30, param1=10,param2=22,minRadius=10,maxRadius=100)
+    circles = cv2.HoughCircles(grayImage, cv2.HOUGH_GRADIENT, 1, minDist=30, param1=10, param2=22, minRadius=10, maxRadius=100)
 
     circles = np.uint16(np.around(circles))
 
+    #set a counter for the circles
     count = 0
     
     for i in circles[0,:]:
         # draw the outer circle
-        cv2.circle(cimg,(i[0],i[1]),i[2],(0,255,0),2)
+        cv2.circle(circleImage,(i[0],i[1]),i[2],(0,255,0),2)
         # draw the center of the circle
-        cv2.circle(cimg,(i[0],i[1]),2,(0,0,255),3)
+        cv2.circle(circleImage,(i[0],i[1]),2,(0,0,255),3)
         count = count + 1
 
-    print(count)
-    cv2.imshow('detected circles',cimg)
+    print("The number of circles found: ", count)
     
+    #display the image with the circles highlighted.
+    cv2.imshow('detected circles', circleImage)
     cv2.waitKey(0)
     
-    cv2.imwrite('foundcircle.png',cimg)
+    #save the final image to disk
+    cv2.imwrite('foundcircle.png', circleImage)
 
 
 finally:
