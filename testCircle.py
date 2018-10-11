@@ -8,8 +8,10 @@ imageName = 'circles.jpg'
 
 try:
     #load an image from the disk
-    grayImage = cv2.imread(imageName,0)
     circleImage = cv2.imread(imageName)
+    
+    #convert the image to grayscale
+    grayImage = cv2.cvtColor(circleImage, cv2.COLOR_BGR2GRAY)
     
     #blur the image, so that similar colors get combined
     #https://docs.opencv.org/3.1.0/d4/d13/tutorial_py_filtering.html
@@ -54,6 +56,7 @@ try:
         cv2.circle(circleImage,(i[0],i[1]),i[2],(0,255,0),2)
         # draw the center of the circle
         cv2.circle(circleImage,(i[0],i[1]),2,(0,0,255),3)
+        #count the circle
         count = count + 1
 
     print("The number of circles found: ", count)
@@ -65,7 +68,5 @@ try:
     #save the final image to disk
     cv2.imwrite('foundcircle.png', circleImage)
 
-
 finally:
     cv2.destroyAllWindows()
-
