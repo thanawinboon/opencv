@@ -44,9 +44,7 @@ try:
     If you have an idea what size circles you are looking for, then it would be best to
     set min_radius and max_radius accordingly. Otherwise, it will return anything circular of any size.
     """
-    #circles = cv2.HoughCircles(grayImage, cv2.HOUGH_GRADIENT, 1, minDist=30, param1=10, param2=22, minRadius=10, maxRadius=100)
-
-    circles = cv2.HoughCircles(grayImage, cv2.HOUGH_GRADIENT, 1.2, 75)
+    circles = cv2.HoughCircles(grayImage, cv2.HOUGH_GRADIENT, 1, minDist=30, param1=10, param2=22, minRadius=10, maxRadius=100)
 
     circles = np.uint16(np.around(circles))
 
